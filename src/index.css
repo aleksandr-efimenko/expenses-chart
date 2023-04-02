@@ -22,3 +22,10 @@
 body {
   --fs-body: 1.125rem;
 }
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: var(--fw-heading);
+  color: var(--dark-brown);
+  margin-bottom: 1.5rem;
+}
