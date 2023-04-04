@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
 
 :root {
+  font-size: 10px;
+  --font-family: "DM Sans", sans-serif;
+
+  /* Colors */
   --soft-red: hsl(10, 79%, 65%);
   --cyan: hsl(186, 34%, 60%);
   --dark-brown: hsl(25, 47%, 15%);
@@ -8,9 +12,37 @@
   --cream: hsl(27, 66%, 92%);
   --very-pale-orange: hsl(33, 100%, 98%);
 
-  --font-family: "DM Sans", sans-serif;
+  /* Paragraph */
   --fw-paragraph: 400;
-  --fw-heading: 700;
+
+  --fs-paragraph-desktop: 1.8rem;
+  --fs-paragraph-mobile: 1.5rem;
+  --fs-paragraph: var(--fs-paragraph-desktop);
+
+  --lh-paragraph-desktop: 2.3rem;
+  --lh-paragraph-mobile: 2rem;
+  --lh-paragraph: var(--lh-paragraph-desktop);
+
+  /* Header  */
+  --fw-header: 700;
+
+  --fs-header-l-desktop: 4.8rem;
+  --fs-header-l-mobile: 3rem;
+  --fs-header-l: var(--fs-header-l-desktop);
+
+  --lh-header-l-desktop: 6.2rem;
+  --lh-header-l-mobile: 3.9rem;
+  --lh-header-l: var(--lh-header-l-desktop);
+
+  --fs-header-m-desktop: 3.2rem;
+  --fs-header-m-mobile: 2.4rem;
+  --fs-header-m: var(--fs-header-m-desktop);
+
+  --lh-header-m-desktop: 4.2rem;
+  --lh-header-m-mobile: 3.1rem;
+  --lh-header-m: var(--lh-header-m-desktop);
+
+  --container-border-radius: 2rem;
 }
 
 * {
@@ -20,7 +52,7 @@
 }
 
 body {
-  --fs-body: 1.125rem;
+  font-size: var(--fs-paragraph);
   font-family: var(--font-family);
   background-color: var(--cream);
   min-height: 100vh;
@@ -30,9 +62,21 @@ body {
   align-items: center;
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: var(--fw-heading);
-  color: var(--dark-brown);
-  margin-bottom: 1.5rem;
+p {
+  font-size: var(--fs-paragraph);
+  font-weight: var(--fw-paragraph);
+  line-height: var(--lh-paragraph);
 }
+
+.header-l {
+  font-size: var(--fs-header-l);
+  font-weight: var(--fw-header);
+  line-height: var(--lh-header-l);
+}
+
+.header-m {
+  font-size: var(--fs-header-m);
+  font-weight: var(--fw-header);
+  line-height: var(--lh-header-m);
+}
+

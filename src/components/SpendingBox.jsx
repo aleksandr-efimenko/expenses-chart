@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import Chart from "chart.js/auto";
-
 
 export default function SpendingBox() {
   const [chart, setChart] = useState(null);
@@ -39,11 +39,17 @@ export default function SpendingBox() {
   //   const newChart = new Chart(ctx, config);
   //   setChart(newChart);
   // }
+
+  const SpendingContainer = styled.div`
+    background-color: var(--very-pale-orange);
+    border-radius: var(--container-border-radius);
+    padding: 3.2rem 4rem 4rem;
+  `;
   return (
-    <div>
+    <SpendingContainer>
       <h1 className="spending-header">Spending - Last 7 days</h1>
       <div className="chart">
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <canvas id="myChart" width="400" height="200"></canvas>
       </div>
       mon tue wed thu fri sat sun
       <hr />
@@ -57,6 +63,6 @@ export default function SpendingBox() {
           <p className="total-month-change-description">from last month</p>
         </div>
       </div>
-    </div>
+    </SpendingContainer>
   );
 }
