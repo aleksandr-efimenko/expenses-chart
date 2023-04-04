@@ -62,13 +62,14 @@ body {
   align-items: center;
 }
 
-p {
+/* p {
   font-size: var(--fs-paragraph);
   font-weight: var(--fw-paragraph);
   line-height: var(--lh-paragraph);
-}
+  color: var(--dark-brown);
+} */
 
-.header-l {
+/* .header-l {
   font-size: var(--fs-header-l);
   font-weight: var(--fw-header);
   line-height: var(--lh-header-l);
@@ -78,5 +79,20 @@ p {
   font-size: var(--fs-header-m);
   font-weight: var(--fw-header);
   line-height: var(--lh-header-m);
-}
+} */
 
+@media (max-width: 50em) {
+  body {
+    font-size: var(--fs-paragraph-mobile);
+  }
+
+  .header-l {
+    font-size: var(--fs-header-l-mobile);
+    line-height: var(--lh-header-l-mobile);
+  }
+
+  .header-m {
+    font-size: var(--fs-header-m-mobile);
+    line-height: var(--lh-header-m-mobile);
+  }
+}
