@@ -21,6 +21,13 @@
 
 body {
   --fs-body: 1.125rem;
+  font-family: var(--font-family);
+  background-color: var(--cream);
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
