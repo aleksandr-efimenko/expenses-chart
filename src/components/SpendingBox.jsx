@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Chart from "chart.js/auto";
+import { useQuery } from "react-query";
 
 const SpendingContainer = styled.div`
   background-color: var(--very-pale-orange);
@@ -15,6 +16,7 @@ const TotalMonthContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 0.1rem;
 `;
 
 const HorizontalLine = styled.hr`
@@ -26,31 +28,33 @@ const HorizontalLine = styled.hr`
   }
 `;
 
-const TotalSumContainer = styled.div`
+const ChangeContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
-`;
-
-const ChangeContainer = styled(TotalSumContainer)`
   align-items: flex-end;
 `;
 
+const fetchFunc = async () => {
+  const response = fetch("./public/assets/data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => console.log(error));
+  return response;
+};
 
 export default function SpendingBox() {
-  // const [chart, setChart] = useState(null);
+  const [chart, setChart] = useState(null);
+  const { data } = useQuery("spending", fetchFunc, {
+    staleTime: 1000 * 60 * 60 * 24,
+  });
 
-  // const data = fetch("../assets/data.json")
-  // .catch((error) => {
-  //   console.error("Error:", error);
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     return data;
-  //   });
+  console.log(data);
 
-  // const labels = data.map((item) => item.date);
-  // const values = data.map((item) => item.value);
+  const labels = data.map((item) => item.day);
+  const values = data.map((item) => item.amount);
 
   // const config = {
   //   type: "line",
@@ -69,11 +73,11 @@ export default function SpendingBox() {
   //   options: {},
   // };
 
-  // if (!chart) {
-  //   const ctx = document.getElementById("myChart");
-  //   const newChart = new Chart(ctx, config);
-  //   setChart(newChart);
-  // }
+  if (!chart) {
+    const ctx = document.getElementById("myChart");
+    const newChart = new Chart(ctx, config);
+    setChart(newChart);
+  }
 
   return (
     <SpendingContainer>
@@ -83,11 +87,9 @@ export default function SpendingBox() {
       </div>
       mon tue wed thu fri sat sun
       <HorizontalLine />
-          <p className="medium-brown">Total this month</p>
+      <p className="medium-brown">Total this month</p>
       <TotalMonthContainer>
-        <TotalSumContainer>
-          <p className="header-l">$478.33</p>
-        </TotalSumContainer>
+        <p className="header-l">$478.33</p>
         <ChangeContainer>
           <p className="fw-header">+2.4%</p>
           <p className="medium-brown">from last month</p>
