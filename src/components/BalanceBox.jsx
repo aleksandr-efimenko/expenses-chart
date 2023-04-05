@@ -11,6 +11,9 @@ const BalanceContainer = styled.div`
   padding: 2.7rem 3.9rem 2.5rem 3.2rem;
   width: 100%;
 
+  p {
+    color: var(--very-pale-orange);
+  }
   @media (max-width: 50em) {
     padding: 2rem 2.4rem 2.2rem;
   }
@@ -27,6 +30,7 @@ const BalanceDescriptionContainer = styled.div`
   flex-direction: column;
   gap: 0.8rem;
 `;
+
 
 export default function BalanceBox() {
   return (

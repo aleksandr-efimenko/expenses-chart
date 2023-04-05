@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Chart from "chart.js/auto";
-import { Paragraph } from "../App";
 
 const SpendingContainer = styled.div`
   background-color: var(--very-pale-orange);
@@ -16,20 +15,30 @@ const TotalMonthContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin-top: 3.2rem;
-  @media (max-width: 50em) {
-    margin-top: 2.4rem;
-  }
 `;
 
 const HorizontalLine = styled.hr`
   border: 0.1rem solid var(--cream);
   width: 100%;
+  margin-block: 3.2rem;
+  @media (max-width: 50em) {
+    margin-block: 2.4rem;
+  }
 `;
 
+const TotalSumContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+`;
+
+const ChangeContainer = styled(TotalSumContainer)`
+  align-items: flex-end;
+`;
+
+
 export default function SpendingBox() {
-  const [chart, setChart] = useState(null);
+  // const [chart, setChart] = useState(null);
 
   // const data = fetch("../assets/data.json")
   // .catch((error) => {
@@ -74,15 +83,15 @@ export default function SpendingBox() {
       </div>
       mon tue wed thu fri sat sun
       <HorizontalLine />
+          <p className="medium-brown">Total this month</p>
       <TotalMonthContainer>
-        <div className="total-month-sum-container">
-          <Paragraph>Total this month</Paragraph>
-          <Paragraph className="header-l">$478.33</Paragraph>
-        </div>
-        <div className="change-container">
-          <p className="total-month-percent-change">+2.4%</p>
-          <p className="total-month-change-description">from last month</p>
-        </div>
+        <TotalSumContainer>
+          <p className="header-l">$478.33</p>
+        </TotalSumContainer>
+        <ChangeContainer>
+          <p className="fw-header">+2.4%</p>
+          <p className="medium-brown">from last month</p>
+        </ChangeContainer>
       </TotalMonthContainer>
     </SpendingContainer>
   );

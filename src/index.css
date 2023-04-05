@@ -62,14 +62,14 @@ body {
   align-items: center;
 }
 
-/* p {
+p {
   font-size: var(--fs-paragraph);
   font-weight: var(--fw-paragraph);
   line-height: var(--lh-paragraph);
   color: var(--dark-brown);
-} */
+}
 
-/* .header-l {
+.header-l {
   font-size: var(--fs-header-l);
   font-weight: var(--fw-header);
   line-height: var(--lh-header-l);
@@ -79,7 +79,15 @@ body {
   font-size: var(--fs-header-m);
   font-weight: var(--fw-header);
   line-height: var(--lh-header-m);
-} */
+}
+
+.medium-brown {
+  color: var(--medium-brown);
+}
+
+.fw-header {
+  font-weight: var(--fw-header);
+}
 
 @media (max-width: 50em) {
   body {
