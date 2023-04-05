@@ -20,7 +20,7 @@ const BalanceContainer = styled.div`
 `;
 
 const LogoContainer = styled.div`
-  background: url("/public/images/logo.svg") no-repeat center;
+  background: url("./images/logo.svg") no-repeat center;
   min-height: 4.8rem;
   min-width: 7.2rem;
 `;
