@@ -9,6 +9,9 @@ const ComponentContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 2.4rem;
+  @media (max-width: 50em) {
+    gap: 1.6rem;
+  }
 `;
 
 

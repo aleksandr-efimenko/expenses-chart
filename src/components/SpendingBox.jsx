@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Chart from "chart.js/auto";
 import { useQuery } from "react-query";
+import { Bar } from "react-chartjs-2";
 
 const SpendingContainer = styled.div`
   background-color: var(--very-pale-orange);
@@ -22,9 +23,9 @@ const TotalMonthContainer = styled.div`
 const HorizontalLine = styled.hr`
   border: 0.1rem solid var(--cream);
   width: 100%;
-  margin-block: 3.2rem;
+  margin-block: 2.4rem 3.2rem;
   @media (max-width: 50em) {
-    margin-block: 2.4rem;
+    margin-block: 1.6rem 2.4rem;
   }
 `;
 
@@ -36,7 +37,7 @@ const ChangeContainer = styled.div`
 `;
 
 const fetchFunc = async () => {
-  const response = fetch("./public/assets/data.json")
+  const response = fetch("./assets/data.json")
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -45,47 +46,109 @@ const fetchFunc = async () => {
   return response;
 };
 
-export default function SpendingBox() {
-  const [chart, setChart] = useState(null);
-  const { data } = useQuery("spending", fetchFunc, {
-    staleTime: 1000 * 60 * 60 * 24,
-  });
+const ChartContainer = styled.div`
+  width: 100%;
+  min-height: 18rem;
+  margin-block: 3.2rem 0;
+  @media (max-width: 50em) {
+    min-height: 15rem;
+  }
+`;
 
-  console.log(data);
+export default function SpendingBox() {
+  const { data, status } = useQuery("spending", fetchFunc);
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+  if (status === "error") {
+    return <p>Error</p>;
+  }
 
   const labels = data.map((item) => item.day);
   const values = data.map((item) => item.amount);
 
-  // const config = {
-  //   type: "line",
-  //   data: {
-  //     labels: labels,
-  //     datasets: [
-  //       {
-  //         label: "My First Dataset",
-  //         data: values,
-  //         fill: false,
-  //         borderColor: "rgb(75, 192, 192)",
-  //         tension: 0.1,
-  //       },
-  //     ],
-  //   },
-  //   options: {},
-  // };
+  const chartColors = {
+    softRed: "hsl(10, 79%, 65%)",
+    lighterSoftRed: "hsl(10, 100%, 76%)",
+    softBlue: "hsl(186, 34%, 60%)",
+    mediumBrown: "hsl(28, 10%, 53%)",
+    black: "hsl(0, 0%, 0%)",
+  };
 
-  if (!chart) {
-    const ctx = document.getElementById("myChart");
-    const newChart = new Chart(ctx, config);
-    setChart(newChart);
-  }
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        data: values,
+        backgroundColor: chartColors.softRed,
+        hoverBackgroundColor: chartColors.lighterSoftRed,
+        activeBackgroundColor: chartColors.lighterSoftRed,
+        borderRadius: 5,
+        borderSkipped: false,
+      },
+    ],
+  };
+
+  const options = {
+    labels: {
+      display: false,
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        border: {
+          display: false,
+        },
+        ticks: {
+          color: chartColors.mediumBrown,
+          padding: 0,
+        },
+      },
+      y: {
+        display: false,
+      },
+    },
+    plugins: {
+      tooltip: {
+        enabled: true,
+        mode: "index",
+        backgroundColor: chartColors.black,
+        displayColors: false,
+        caretSize: 0,
+        position: "nearest",
+        xAlign: "center",
+        padding: {
+          top: 8,
+          bottom: 6,
+          left: 8,
+          right: 8,
+        },
+        bodyFont: {
+          size: 18,
+          family: "DM Sans",
+          weight: 700,
+        },
+        callbacks: {
+          label: function (context) {
+            return "$" + context.parsed.y;
+          },
+          title: () => "",
+        },
+      },
+      legend: {
+        display: false,
+      },
+    },
+  };
 
   return (
     <SpendingContainer>
       <h1 className="header-m">Spending - Last 7 days</h1>
-      <div className="chart">
-        <canvas id="myChart" width="400" height="200"></canvas>
-      </div>
-      mon tue wed thu fri sat sun
+      <ChartContainer>
+        <Bar data={chartData} options={options} />
+      </ChartContainer>
       <HorizontalLine />
       <p className="medium-brown">Total this month</p>
       <TotalMonthContainer>
