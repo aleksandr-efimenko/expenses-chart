@@ -8,6 +8,7 @@ const SpendingContainer = styled.div`
   background-color: var(--very-pale-orange);
   border-radius: var(--container-border-radius);
   padding: 3.2rem 4rem 4rem;
+  width: 100%;
   @media (max-width: 50em) {
     padding: 2rem 2.4rem 2.4rem;
   }
