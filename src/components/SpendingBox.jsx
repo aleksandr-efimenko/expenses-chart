@@ -57,6 +57,12 @@ const ChartContainer = styled.div`
 
 export default function SpendingBox() {
   const { data, status } = useQuery("spending", fetchFunc);
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+  if (status === "error") {
+    return <p>Error</p>;
+  }
 
   const labels = data.map((item) => item.day);
   const values = data.map((item) => item.amount);
@@ -141,8 +147,6 @@ export default function SpendingBox() {
     <SpendingContainer>
       <h1 className="header-m">Spending - Last 7 days</h1>
       <ChartContainer>
-        {status === "loading" && <p>Loading...</p>}
-        {status === "error" && <p>Error fetching data</p>}
         <Bar data={chartData} options={options} />
       </ChartContainer>
       <HorizontalLine />
